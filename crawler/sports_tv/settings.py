@@ -1,8 +1,8 @@
 # Scrapy settings for dirbot project
 
-SPIDER_MODULES = ['sport-tv.spiders']
-NEWSPIDER_MODULE = 'sports-tv.spiders'
-DEFAULT_ITEM_CLASS = 'sports-tv.items.default.DefaultItem'
+SPIDER_MODULES = ['sports_tv.spiders']
+NEWSPIDER_MODULE = 'sports_tv.spiders'
+DEFAULT_ITEM_CLASS = 'sports_tv.items.default.Default'
 ITEM_PIPELINES = [
     'pipelines.mongo.MongoDBPipeline',
 ]
@@ -16,7 +16,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 EXTENSIONS = {
     'scrapy.contrib.debug.StackTraceDump': 10,
-    'scrapy.contrib.throttle.AutoThrottle': 30,
+    #'scrapy.contrib.throttle.AutoThrottle': 30,
 }
 
 AUTOTHROTTLE_ENABLED = True
