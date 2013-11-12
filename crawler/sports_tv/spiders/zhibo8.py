@@ -34,13 +34,10 @@ class Zhiobo8Spider(BaseSpider):
                 link = race.select("./a[1]/@href").extract()
                 title = race.select("./a[1]/text()").extract()
                 teams = race.select("./text()").extract()
-                item['team1'] = "team1"
-                item['team2'] = "team2"
-                item['time'] = int(time.time())
-                item['date'] = 20131014,
+                item['teams_time'] = teams
                 item["url"] = link
                 item["title"] = title
                 item["date"] = date
-                print item
+                item['base_url'] = response.url
                 items.append(item)
         return items
