@@ -1,7 +1,10 @@
+# encoding: utf-8
+
+import time
+import urlparse
+
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
-import time
-
 from sports_tv.items.sport import Sport
 
 
@@ -12,6 +15,7 @@ class Zhiobo8Spider(BaseSpider):
             "http://www.zhibo8.cc/",
     ]
     item_type = "sport"
+    src = "直播吧"
 
     def parse(self, response):
         """
@@ -32,15 +36,32 @@ class Zhiobo8Spider(BaseSpider):
             for race in races:
                 item = Sport()
                 link = race.select("./a[1]/@href").extract()
+                if len(link) < 1:
+                    continue
+                link = link[0]
                 title = race.select("./a[1]/text()").extract()
                 teams = race.select("./text()").extract()
-                item['team1'] = "team1"
-                item['team2'] = "team2"
-                item['time'] = int(time.time())
+                if len(teams) > 0:
+                    teams = teams[0]
+                else:
+                    teams = ""
+                for b in race.select("./b/text()").extract():
+                    if len(b) > 0:
+                        teams = "%s %s" % (teams, b)
+                teams = teams.split(" ")
+                hour_min = teams[0]
+                item['time'] = hour_min
+                if len(teams) > 2:
+                    race_type = teams[2]
+                    item['race_type'] = race_type
+                if len(teams) > 5:
+                    item['team1'] = teams[3:]
+                    item['team2'] = teams[5:]
                 item['date'] = 20131014,
-                item["url"] = link
+                item["url"] = urlparse.urljoin(response.url, link)
                 item["title"] = title
                 item["date"] = date
-                print item
+                item['src'] = self.src
+                item['type'] = self.item_type
                 items.append(item)
         return items

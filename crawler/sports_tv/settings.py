@@ -4,7 +4,8 @@ SPIDER_MODULES = ['sports_tv.spiders']
 NEWSPIDER_MODULE = 'sports_tv.spiders'
 DEFAULT_ITEM_CLASS = 'sports_tv.items.default.Default'
 ITEM_PIPELINES = [
-    'pipelines.mongo.MongoDBPipeline',
+    'sports_tv.pipelines.filter_other.FilterOtherPipeline',
+    'sports_tv.pipelines.mongo.MongoDBPipeline',
 ]
 DOWNLOADER_MIDDLEWARES = {
     #'proxy.ProxyMiddleware': 5,

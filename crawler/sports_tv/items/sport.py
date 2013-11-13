@@ -11,6 +11,9 @@ class Sport(Item):
     time = Field()
     title = Field()
     url = Field()
+    src = Field()
+    type = Field()
+    race_type = Field()
 
 def main():
     pass
