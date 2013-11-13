@@ -41,27 +41,12 @@ class Zhiobo8Spider(BaseSpider):
                 link = link[0]
                 title = race.select("./a[1]/text()").extract()
                 teams = race.select("./text()").extract()
-                if len(teams) > 0:
-                    teams = teams[0]
-                else:
-                    teams = ""
-                for b in race.select("./b/text()").extract():
-                    if len(b) > 0:
-                        teams = "%s %s" % (teams, b)
-                teams = teams.split(" ")
-                hour_min = teams[0]
-                item['time'] = hour_min
-                if len(teams) > 2:
-                    race_type = teams[2]
-                    item['race_type'] = race_type
-                if len(teams) > 5:
-                    item['team1'] = teams[3:]
-                    item['team2'] = teams[5:]
-                item['date'] = 20131014,
                 item["url"] = urlparse.urljoin(response.url, link)
                 item["title"] = title
                 item["date"] = date
-                item['src'] = self.src
-                item['type'] = self.item_type
+                item['src'] = self.src.decode("utf-8")
+                item['race_type'] = self.item_type
+                item['teams_time'] = teams
+                item['base_url'] = response.url
                 items.append(item)
         return items

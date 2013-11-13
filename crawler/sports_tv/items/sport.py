@@ -5,15 +5,17 @@
 from scrapy.item import Item, Field
 
 class Sport(Item):
-    team1 = Field()
-    team2 = Field()
     date = Field()
-    time = Field()
+    teams_time = Field()
     title = Field()
     url = Field()
     src = Field()
-    type = Field()
+    race = Field()
     race_type = Field()
+    race_time = Field()
+    team1 = Field()
+    team2 = Field()
+    base_url = Field()
 
 def main():
     pass
